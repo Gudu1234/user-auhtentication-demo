@@ -7,14 +7,12 @@ const {
 module.exports = {
   before: {
     all: [],
-    find: [ctx => {
-      console.log(ctx.params);
-    },authenticate({
-      service: 'vendor-authentication',
-      strategies: ['jwt'],
-    }), ctx => {
-      console.log(ctx.params);
-    }],
+    find: [
+      authenticate({
+        service: 'vendor-authentication', // requires the service for authentication
+        strategies: ['jwt'], // requires the strategy for authentication check
+      })
+    ],
     get: [authenticate('jwt')],
     create: [hashPassword('password')],
     update: [],
